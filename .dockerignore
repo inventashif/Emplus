@@ -1,0 +1,59 @@
+# Docker ignore file for Face Navigator
+
+# Git files
+.git
+.gitignore
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Documentation (keep README_FaceNavigator.md)
+README_original.md
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Test coverage
+.coverage
+htmlcov/
+
+# Large model files (will be downloaded)
+shape_predictor_68_face_landmarks.dat
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# Install scripts (not needed in container)
+install.sh
+
+# Android files (not needed)
+AndroidManifest.xml

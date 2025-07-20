@@ -22,6 +22,25 @@ A Python application that allows you to control your Ubuntu desktop cursor using
 
 ## Installation
 
+### Option 1: Docker (Recommended)
+
+Docker provides an isolated environment with all dependencies pre-installed:
+
+```bash
+# Quick start with Docker
+./docker-run.sh
+
+# Start with video preview
+./docker-run.sh --debug
+
+# Build and start
+./docker-run.sh --build
+```
+
+See [Docker Guide](README_Docker.md) for detailed Docker usage instructions.
+
+### Option 2: Native Installation
+
 1. Clone or download this repository
 2. Run the installation script:
    ```bash
@@ -36,17 +55,34 @@ The installation script will:
 
 ## Usage
 
-### Quick Start
+### Docker Usage
+```bash
+# Start normally
+./docker-run.sh
+
+# Start with video preview (debug)
+./docker-run.sh --debug
+
+# View logs
+./docker-run.sh logs
+
+# Stop application
+./docker-run.sh stop
+```
+
+### Native Usage
+
+#### Quick Start
 ```bash
 ./run.sh
 ```
 
-### With Video Preview (for debugging)
+#### With Video Preview (for debugging)
 ```bash
 ./run.sh --show-video
 ```
 
-### Manual Execution
+#### Manual Execution
 ```bash
 source venv/bin/activate
 python3 face_navigator.py
@@ -84,24 +120,43 @@ Edit `config.json` to adjust settings:
 
 ### Common Issues
 
-1. **"No module named cv2"**:
+#### Docker Issues
+
+1. **Camera not accessible in Docker**:
+   - Ensure camera device is mounted: `--device=/dev/video0`
+   - Check camera permissions: `ls -la /dev/video0`
+   - Add user to video group: `sudo usermod -aG video $USER`
+
+2. **Display not working in Docker**:
+   - Set X11 permissions: `xhost +local:docker`
+   - Check DISPLAY variable: `echo $DISPLAY`
+   - Ensure X11 socket is mounted: `-v /tmp/.X11-unix:/tmp/.X11-unix`
+
+3. **Docker build fails**:
+   - Check Docker and Docker Compose versions
+   - Ensure sufficient disk space
+   - Try rebuilding: `./docker-run.sh --build`
+
+#### Native Installation Issues
+
+4. **"No module named cv2"**:
    - Make sure you activated the virtual environment: `source venv/bin/activate`
    - Reinstall dependencies: `pip install -r requirements.txt`
 
-2. **Face not detected**:
+5. **Face not detected**:
    - Ensure good lighting
    - Position yourself directly in front of the camera
    - Check if camera is working with other applications
 
-3. **Cursor movement too sensitive/slow**:
+6. **Cursor movement too sensitive/slow**:
    - Adjust the `sensitivity` value in `config.json`
    - Higher values = more sensitive movement
 
-4. **Accidental clicks**:
+7. **Accidental clicks**:
    - Increase `blink_cooldown` in `config.json`
    - Adjust `eye_ar_threshold` (higher = requires more closed eyes)
 
-5. **Permission denied for camera**:
+8. **Permission denied for camera**:
    - Make sure your user has access to the camera
    - Check if other applications are using the camera
 
