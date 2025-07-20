@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  face-navigator:
+    build: .
+    container_name: face-navigator-app
+    stdin_open: true
+    tty: true
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      # X11 socket for GUI display
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    devices:
+      # Camera access
+      - /dev/video0:/dev/video0
+    network_mode: host
+    privileged: false
+    # Grant access to video group
+    group_add:
+      - video
+    restart: unless-stopped
+    command: ["python3", "face_navigator.py"]
+
+  # Alternative service for debugging with video preview
+  face-navigator-debug:
+    build: .
+    container_name: face-navigator-debug
+    stdin_open: true
+    tty: true
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    devices:
+      - /dev/video0:/dev/video0
+    network_mode: host
+    privileged: false
+    group_add:
+      - video
+    restart: "no"
+    command: ["python3", "face_navigator.py", "--show-video"]
+    profiles:
+      - debug

@@ -1,24 +1,55 @@
-# Emplus
-**Task hijacking mitigation.**
+# Emplus - Ubuntu Face Navigation App
 
-**Add android:taskAffinity="" in the activity shown below. Or check the fix I have implemented in AndroidManifest.xml file then fix that in your app.(uploaded)**
+A Python application that allows you to control your Ubuntu desktop cursor using face movement and perform mouse clicks using eye blinks.
 
-![Screenshot from 2025-02-16 16-30-55](https://github.com/user-attachments/assets/c686c7c3-6e6e-4a53-b780-5c6bd9228d04)
+## Quick Start
 
+1. **Install**: `./install.sh`
+2. **Run**: `./run.sh`
+3. **Test**: `python3 test_system.py`
 
+## Features
 
-**Optional**
-1- Open your MainActivity.java (or any sensitive activity).
-2- Inside the onCreate() method, paste this before setContentView():
+- 🎯 **Face Tracking Navigation**: Move cursor by moving your face
+- 👁️ **Eye Blink Clicking**: Left eye blink = left click, right eye blink = right click  
+- 🎛️ **Auto Calibration**: Automatically calibrates to your face position
+- ⚙️ **Configurable**: Adjust sensitivity, thresholds, and timing
+- 🔧 **Background Mode**: Run without video preview for better performance
 
+## How It Works
+
+1. **Calibration**: Look straight ahead for 1-2 seconds when starting
+2. **Navigation**: Move your face to control cursor movement
+3. **Clicking**: Blink left eye for left click, right eye for right click
+
+## Files
+
+- `face_navigator.py` - Main application
+- `install.sh` - Installation script  
+- `run.sh` - Startup script
+- `test_system.py` - System compatibility test
+- `config.json` - Configuration settings
+- `requirements.txt` - Python dependencies
+
+## Usage Examples
+
+```bash
+# Basic usage
+./run.sh
+
+# With video preview (for debugging)
+./run.sh --show-video
+
+# Test system compatibility  
+python3 test_system.py
 ```
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    
-    // Prevent screen overlay attacks
-   ** getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, 
-                         WindowManager.LayoutParams.FLAG_SECURE);
-    **
-    setContentView(R.layout.activity_main);
-}
+
+See [README_FaceNavigator.md](README_FaceNavigator.md) for detailed documentation.
+
+---
+
+## Original Android Content
+
+**Task hijacking mitigation for Android app.**
+
+The AndroidManifest.xml includes `android:taskAffinity=""` to prevent task hijacking attacks.
