@@ -1,15 +1,10 @@
 # Docker Guide for Face Navigator
 
-This guide explains how to run the Face Navigator application using Docker.
-
-## Prerequisites
-
-- Docker installed and running
-- Docker Compose installed
-- Camera device accessible (`/dev/video0`)
-- X11 display server for GUI features (Linux)
+This guide explains how to run the Face Navigator application using Docker. The Docker image is completely self-contained with all dependencies included.
 
 ## Quick Start
+
+The Docker image contains everything you need to run the Face Navigator app. No external files are required.
 
 ### 1. Build and Run
 ```bash
@@ -49,6 +44,25 @@ docker run -it --rm \
   face-navigator
 ```
 
+## What's Included
+
+The Docker image is completely self-contained and includes:
+
+- ✅ **All Python dependencies** (dlib, opencv, pyautogui, etc.)
+- ✅ **System libraries** (OpenCV, NumPy, SciPy from Ubuntu packages)  
+- ✅ **Application files** (face_navigator.py, config.json, etc.)
+- ✅ **Facial landmark model** (downloaded automatically if needed)
+- ✅ **All scripts and utilities** (run.sh, validation tools, etc.)
+
+**No external files needed!** Just run the container and it works.
+
+## Prerequisites
+
+- Docker installed and running
+- Docker Compose installed  
+- Camera device accessible (`/dev/video0`)
+- X11 display server for GUI features (Linux)
+
 ## Configuration
 
 ### Environment Variables
@@ -56,9 +70,7 @@ docker run -it --rm \
 - `QT_X11_NO_MITSHM`: Prevents X11 MIT-SHM issues
 
 ### Volumes
-- `/tmp/.X11-unix`: X11 socket for display access
-- `./config.json`: Application configuration (optional)
-- `./shape_predictor_68_face_landmarks.dat`: Facial landmarks model (optional)
+- `/tmp/.X11-unix`: X11 socket for display access (only volume needed)
 
 ### Devices
 - `/dev/video0`: Camera device access
@@ -141,12 +153,6 @@ docker inspect face-navigator-app
 
 ## Advanced Usage
 
-### Custom Configuration
-```bash
-# Mount custom config
-docker run -v $(pwd)/my-config.json:/app/config.json face-navigator
-```
-
 ### Headless Mode (No GUI)
 ```bash
 # Run without X11 display
@@ -187,7 +193,16 @@ docker run --gpus all face-navigator
 - Minimal privileges required
 - Camera and display access only
 - No network ports exposed
-- Read-only configuration mounting recommended
+- All dependencies included in image (no external downloads during runtime)
+
+## What Changed
+
+This version is **completely self-contained**:
+
+- ❌ **No external config mounting** (config.json included in image)
+- ❌ **No external landmark file mounting** (downloaded during build or runtime)
+- ❌ **No external dependencies** (everything pre-installed)
+- ✅ **Just run and go!**
 
 ## Development
 

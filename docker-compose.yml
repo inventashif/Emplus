@@ -12,10 +12,6 @@ services:
     volumes:
       # X11 socket for GUI display
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      # Optional: Mount config for persistence
-      - ./config.json:/app/config.json:ro
-      # Optional: Mount facial landmarks file to avoid re-downloading
-      - ./shape_predictor_68_face_landmarks.dat:/app/shape_predictor_68_face_landmarks.dat:ro
     devices:
       # Camera access
       - /dev/video0:/dev/video0
@@ -38,8 +34,6 @@ services:
       - QT_X11_NO_MITSHM=1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - ./config.json:/app/config.json:ro
-      - ./shape_predictor_68_face_landmarks.dat:/app/shape_predictor_68_face_landmarks.dat:ro
     devices:
       - /dev/video0:/dev/video0
     network_mode: host
