@@ -1,0 +1,9 @@
+{
+    "sensitivity": 2.0,
+    "eye_ar_threshold": 0.25,
+    "eye_ar_consecutive_frames": 3,
+    "blink_cooldown": 0.5,
+    "smoothing_factor": 0.7,
+    "movement_threshold": 10,
+    "calibration_region_size": 50
+}
